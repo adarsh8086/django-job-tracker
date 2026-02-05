@@ -4,6 +4,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
+from rest_framework.generics import ListAPIView
+from rest_framework.permissions import AllowAny
+from .serializers import JobSerializer
+
 from .models import Job, Application
 
 # Create your views here.
@@ -37,3 +41,15 @@ class ApplyJobAPIView(APIView):
             {"message": "Applied successfully"},
             status=status.HTTP_201_CREATED
         )
+
+
+
+
+
+
+
+
+class JobListAPIView(ListAPIView):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+    permission_classes = [AllowAny]
