@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Job Portal{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'my-applications' %}">My Applications</a>
+            <span>Hi {{ user.username }}</span>
+            <a href="{% url 'logout-ui' %}">Logout</a>
+        {% else %}
+           <a href="{% url 'login-ui' %}">Login</a>
+           <a href="{% url 'register-ui' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    <hr>
+    
+    {% if messages %}
+  <div id="messages">
+    {% for message in messages %}
+        <p class="message {{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+   </div>
+{% endif %}
+
+    {% block content %}
+    {% endblock %}
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

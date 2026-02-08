@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="page-title">Available Jobs</h1>
+
+<div class="jobs-container">
+{% for job in jobs %}
+    <div class="job-card">
+        <h3>{{ job.title }}</h3>
+        <p class="job-desc">{{ job.description }}</p>
+        <p class="job-location">
+            <b>Location:</b> {{ job.location }}
+        </p>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'apply-job-ui' job.id %}">
+                <button class="apply-btn" type="button">Apply</button>
+            </a>
+        {% else %}
+            <a class="login-link" href="{% url 'login-ui' %}">Login to apply</a>
+        {% endif %}
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+
